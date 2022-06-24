@@ -1,12 +1,10 @@
 ## 오늘 찾아보 링크 목록
 
 1. [spring security password](https://docs.spring.io/spring-security/reference/features/authentication/password-storage.html)
-2. [terraform tutorial](https://learn.hashicorp.com/collections/terraform/gcp-get-started)
-3. [jira smart commit message](https://www.lesstif.com/pages/viewpage.action?pageId=51282248)
 
 ## 공부한 내용
 
-### 1. Spring Security PassWord 인코딩 하는 방법에 대하여
+### Spring Security PassWord 인코딩 하는 방법에 대하여
 
 - Spring Security 5.7.1을 봤다.
 - Spring Sercurity에 경우 인증과 인가를 통해 봉안을 유지한다.
@@ -17,14 +15,3 @@
   {id}encodedPassword
   ```
   여기서 id는 인코딩할 떄 사용된 방식을 나타내고 encodedPassword는 인코딩된 비밀번호를 나타낸다.
-
-### 2. Terraform 기초
-
-테라폼은 하시코프 사에서 만든
-infrastructure를 코드로 관리할 수 있게 해준 툴입니다. <br/>또한,
-사람이 읽을 수 있는 언어로 구성되어 있다는 것을 알게 되었다.
-
-### 3. gitlab jira smart commit message
-
-gitlab 과 jira를 연동하여 사용해봤다.
-jira 이슈와 gitlab을 api token을 활용해 연동했고 이슈번호를 가지고 커밋메시지를 <br/>활용해 워크플로우를 변동하는 것을 해보았다.
