@@ -1,21 +1,38 @@
 ```
+#!/usr/bin/env sh
+#. "$(dirname -- "$0")/_/husky.sh"
+
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
 if [ -z "$BRANCHES_TO_SKIP" ]; then
-  BRANCHES_TO_SKIP=(master develop release hotfix)
+    BRANCHES_TO_SKIP=(master develop release hotfix)
 fi
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
 BRANCH_NAME="${BRANCH_NAME##*/}"
-JIRA_ID=`echo $BRANCH_NAME | egrep -o 'A.-[0-9]+'`
+JIRA_ID=`echo $BRANCH_NAME | egrep -o 'B.-[0-9]+'`
 COMMIT_SUBJECT=$(cat $1 |head -1)
-#echo $COMMIT_SUBJECT
-COMMIT_SUBJECT_NEW=$(printf "%s (%s)" "${COMMIT_SUBJECT}" "${JIRA_ID}")
-#echo $COMMIT_SUBJECT_NEW
-BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
-BRANCH_IN_COMMIT=$(grep -c "$JIRA_ID" $1)
+COMMIT_SUBJECT_NEW=$(printf "%s (#%s)" "${COMMIT_SUBJECT}" "${JIRA_ID}")
+
+{
+    BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+} ||
+{
+    BRANCH_EXCLUDED=0
+}
+
+{
+    BRANCH_IN_COMMIT=$(grep -c "$JIRA_ID" $1)
+} ||
+{
+    BRANCH_IN_COMMIT=0
+}
 
 if [ -n $JIRA_ID ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
-  echo "asdasdasd"
-  sed -i.bak -e "1s/.*/$COMMIT_SUBJECT_NEW /" $1
+    sed -i.bak -e "1s/.*/$COMMIT_SUBJECT_NEW /" $1
 fi
 ```
 
